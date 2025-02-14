@@ -8,12 +8,21 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "tb_cadastro")
 public class NinjaModel {
+<<<<<<< HEAD
     @Idgi
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String nome;
     String email;
     int idade;
+=======
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+    private String nome;
+    private String email;
+    private int idade;
+>>>>>>> 5ba4812 (Cria uma entidade no banco de dados a partir do NinjaModel)
 
     public NinjaModel() {
     }
