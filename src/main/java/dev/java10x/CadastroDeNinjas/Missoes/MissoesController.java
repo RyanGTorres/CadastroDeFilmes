@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 public class MissoesController {
 
     //GET -- Mandar um requisição para mostrar missoes
-    @GetMapping("/mostar")
+    @GetMapping("/mostrar")
     public String mostrarMissoes(){
         return "Missao mostrada com sucesso";
     }
