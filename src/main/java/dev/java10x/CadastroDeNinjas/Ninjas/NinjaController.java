@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.*;
 public class NinjaController {
 
     @GetMapping("/boasvindas")
-    public String boasvindas(){
+    public String boasVindas(){
         return "Essa é minha primeira mensagem nessa rota";
     }
 
     //adicionar ninja
     @PostMapping("/criar")
-    public String criarninja(){return "Ninja criado!";}
+    public String criarNinja(){return "Ninja criado!";}
 
     //mostrar todos os ninjas
     @GetMapping("/todos")
