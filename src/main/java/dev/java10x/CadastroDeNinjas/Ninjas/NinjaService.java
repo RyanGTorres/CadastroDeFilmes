@@ -24,5 +24,9 @@ private NinjaRepository ninjaRepository;
         return ninjaPorId.orElse(null);
     }
 
+    public NinjaModel criarNinja(NinjaModel ninja){
+        return  ninjaRepository.save(ninja);
+    }
+
 
     }
