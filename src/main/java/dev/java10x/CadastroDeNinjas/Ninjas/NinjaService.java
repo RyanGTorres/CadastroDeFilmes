@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.OptionalInt;
 
 @Service
 public class NinjaService {
@@ -28,5 +27,8 @@ private NinjaRepository ninjaRepository;
         return  ninjaRepository.save(ninja);
     }
 
+    public void deletarNinjaPorId(Long id){
+        ninjaRepository.deleteById(id);
+    }
 
     }
