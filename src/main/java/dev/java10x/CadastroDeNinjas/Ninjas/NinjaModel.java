@@ -13,15 +13,16 @@ import java.util.List;
 //JPA = Java Persistence API
 @Entity
 @Table(name = "tb_cadastro")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+
 public class NinjaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "id")
-    Long id;
+    private Long id;
 
     @Column(name = "nome")
     private String nome;
