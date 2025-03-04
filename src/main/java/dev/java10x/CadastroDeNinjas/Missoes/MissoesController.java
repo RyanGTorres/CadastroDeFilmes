@@ -1,6 +1,8 @@
 package dev.java10x.CadastroDeNinjas.Missoes;
 
 import dev.java10x.CadastroDeNinjas.Ninjas.NinjaModel;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,14 +19,23 @@ public class MissoesController {
 
     //GET -- Mandar um requisição para mostrar missoes
     @GetMapping("/listar/{id}")
-    public MissoesModel listarNinjasPorId(@PathVariable Long id){
-        return missoesService.listarNinjasPorId(id);
+    public ResponseEntity<?> listarNinjasPorId(@PathVariable Long id){
+        MissoesModel missoesModel = missoesService.listarNinjasPorId(id);
+
+        if (missoesModel != null){
+            return ResponseEntity.ok(missoesModel);
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("A missão nao foi encontrada! id: "+id);
+        }
     }
 
     //POST -- Mandar um requisição para criar missoes
     @PostMapping("/criar")
-    public MissoesModel criarMissoes(MissoesModel missoes){
-        return missoesService.criarMissoes(missoes);
+    public ResponseEntity<String> criarMissoes(MissoesModel missoes){
+        MissoesModel missoesModel = missoesService.criarMissoes(missoes);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("A Missão foi criada com sucesso: "+missoesModel.getNomeMissao());
     }
 
     //PUT -- Mandar um requisição para alterar missoes
