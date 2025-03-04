@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Adicionar Ninja</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .form-container {
+            width: 50%;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .mensagem {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+<h1>Adicionar Novo Ninja</h1>
+<div class="form-container">
+    <div th:if="${mensagem}" class="mensagem" th:text="${mensagem}"></div>
+    <form th:action="@{/ninjas/ui/salvar}" th:object="${ninja}" method="post">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" th:field="*{nome}" required />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" th:field="*{email}" required />
+
+        <label for="imgUrl">URL da Imagem:</label>
+        <input type="text" id="imgUrl" th:field="*{imgUrl}" required />
+
+        <label for="idade">Idade:</label>
+        <input type="number" id="idade" th:field="*{idade}" required />
+
+        <label for="rank">Rank:</label>
+        <input type="text" id="rank" th:field="*{rank}" />
+
+        <button type="submit">Cadastrar Ninja</button>
+    </form>
+    <a th:href="@{/ninjas/ui/listar}">Voltar para a lista de ninjas</a>
+</div>
+</body>
+</html>
