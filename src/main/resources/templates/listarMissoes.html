@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>Lista de Ninjas</title>
+    <title>Lista de Missões</title>
     <style>
         body {
     font-family: Arial, sans-serif;
@@ -86,39 +86,31 @@ a:hover {
     </style>
 </head>
 <body>
-<h1>Lista de Ninjas</h1>
-<a class="btn-adicionar" th:href="@{/ninjas/ui/adicionar}">Adicionar Novo Ninja</a>
+<h1>Lista de Missões</h1>
+<a class="btn-adicionar" th:href="@{/missoes/ui/adicionar}">Adicionar Nova Missão</a>
 <table>
     <thead>
-        <tr>
-            <th>ID</th>
-            <th>Imagem</th>
-            <th>Nome</th>
-            <th>Idade</th>
-            <th>Email</th>
-            <th>Rank</th>
-            <th>Missoes</th>
-        </tr>
+    <tr>
+        <th>ID</th>
+        <th>Nome missão</th>
+        <th>Rank missão</th>
+    </tr>
     </thead>
     <tbody>
-    <tr th:each ="ninja: ${ninjas}">
-        <td th:text="${ninja.id}"></td>
-        <td> <img th:src="${ninja.imgUrl}" width="100" height="100"> </td>
-        <td th:text="${ninja.nome}"></td>
-        <td th:text="${ninja.idade}"></td>
-        <td th:text="${ninja.email}"></td>
-        <td th:text="${ninja.rank}"></td>
-        <td>
-            <span th:if="${ninja.missoes}"><span th:text="${ninja.missoes.nomeMissao}"></span>, Dificuldade: <span th:text="${ninja.missoes.rankMissao}"></span></span>
-            <span th:if="${ninja.missoes == null}">Sem Missões cadastradas para o ninja</span>
-        </td>
+    <tr th:each ="missao: ${missoes}">
+        <td th:text="${missao.id}"></td>
+        <td th:text="${missao.nomeMissao}"></td>
+        <td th:text="${missao.rankMissao}"></td>
 
         <td>
-            <a th:href="@{/ninjas/ui/listar/{id}(id=${ninja.id})}">Ver detalher</a>
-            <a th:href="@{/ninjas/ui/alterar/{id}(id=${ninja.id})}">Editar</a>
-            <a th:href="@{/ninjas/ui/deletar/{id}(id=${ninja.id})}">Deletar</a>
+            <span th:each="ninja : ${missao.ninja}"><span th:text="${ninja.nome}"></span><br/></span>
+            <span th:if="${missao.ninjas == null or missao.ninjas.isEmpty()}"></span>
         </td>
-
+        <td>
+            <a th:href="@{/missoes/ui/listar/{id}(id=${missao.id})}">Ver detalher</a>
+            <a th:href="@{/missoes/ui/#/{id}(id=${missao.id})}">Alterar</a>
+            <a th:href="@{/missoes/ui/deletar/{id}(id=${missao.id})}">Deletar</a>
+        </td>
     </tr>
     </tbody>
 </table>

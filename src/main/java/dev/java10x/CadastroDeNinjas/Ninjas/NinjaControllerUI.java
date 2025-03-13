@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.lang.reflect.Parameter;
 import java.util.List;
 
 @Controller
@@ -34,13 +35,25 @@ public class NinjaControllerUI {
         NinjaDTO ninja = ninjaService.listarNinjasPorId(id);
 
         if (ninja != null) {
-            model.addAttribute("ninja", ninja); // Corrigido de "ninjas" para "ninja"
+            model.addAttribute("ninja", ninja);
             return "detalhesninja";
         }
 
         model.addAttribute("mensagem", "Ninja não encontrado!");
         return "listarNinjas";
     }
+
+
+    @GetMapping("/alterar/{id}")
+    public String alterarNinjaId(@PathVariable Long id, Model model) {
+        NinjaDTO ninja = ninjaService.listarNinjasPorId(id);
+        if (ninja != null) {
+            model.addAttribute("ninja", ninja);
+            return "editarNinja";
+        }
+        model.addAttribute("mensagem", "Ninja não encontrado!");
+        return "redirect:/ninjas/ui/listar"; }
+
 
     @GetMapping("/deletar/{id}")
     public String deletarNinjaPorId(@PathVariable Long id) {
