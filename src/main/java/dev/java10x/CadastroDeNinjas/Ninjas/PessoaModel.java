@@ -1,14 +1,12 @@
 package dev.java10x.CadastroDeNinjas.Ninjas;
 
 
-import dev.java10x.CadastroDeNinjas.Missoes.MissoesModel;
+import dev.java10x.CadastroDeNinjas.Missoes.FilmesModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-import java.util.List;
 
 //Entity transforma um classe em uma entidade do BD
 //JPA = Java Persistence API
@@ -17,8 +15,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = "missoes")
-public class NinjaModel {
+@ToString(exclude = "filmes")
+public class PessoaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,12 +35,12 @@ public class NinjaModel {
     @Column(name = "idade")
     private int idade;
 
-    @Column(name = "rank")
-    private String rank;
+    @Column(name = "diretor_favorito")
+    private String diretorFavorito;
 
     //@ManyToOne um ninja tem uma unica missao
     @ManyToOne
-    @JoinColumn(name = "missoes_id") //Foreing Key  ou chave estrangeira
-    private MissoesModel missoes;
+    @JoinColumn(name = "filmes_id") //Foreing Key  ou chave estrangeira
+    private FilmesModel filmes;
 
 }
