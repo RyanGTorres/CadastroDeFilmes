@@ -5,21 +5,19 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/ninjas")
-public class NinjaController {
+@RequestMapping("/pessoas")
+public class PessoaController {
 
-    private final NinjaService ninjaService;
+    private final PessoaService pessoaService;
 
-    public NinjaController(NinjaService ninjaService) {
-        this.ninjaService = ninjaService;
+    public PessoaController(PessoaService pessoaService) {
+        this.pessoaService = pessoaService;
     }
 
     @GetMapping("/boasvindas")
@@ -36,10 +34,10 @@ public class NinjaController {
            @ApiResponse(responseCode = "201", description = "Ninja criado com sucesso!"),
            @ApiResponse(responseCode = "400", description = "Erro na criação do ninja")
    })
-    public ResponseEntity<String> criarNinja(@RequestBody NinjaDTO ninja){
-        NinjaDTO novoNinja = ninjaService.criarNinja(ninja);
+    public ResponseEntity<String> criarPessoa(@RequestBody PessoaDTO pessoa){
+        PessoaDTO novaPessoa = pessoaService.criarPessoas(pessoa);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Ninja Criado com sucesso: "+novoNinja.getNome() + " (ID): "+ novoNinja.getId());
+                .body("Ninja Criado com sucesso: "+novaPessoa.getNome() + " (ID): "+ novaPessoa.getId());
     }
 
     //mostrar todos os ninjas
@@ -50,9 +48,9 @@ public class NinjaController {
             @ApiResponse(responseCode = "200", description = "Mostrando Ninjas!"),
             @ApiResponse(responseCode = "400", description = "Erro ao listar os ninja")
     })
-    public ResponseEntity<List<NinjaDTO>> listarNinjas(){
-        List<NinjaDTO> ninjas = ninjaService.listarNinjas();
-        return ResponseEntity.ok(ninjas);
+    public ResponseEntity<List<PessoaDTO>> listarPessoa(){
+        List<PessoaDTO> pessoa = pessoaService.listarPessoas();
+        return ResponseEntity.ok(pessoa);
     }
 
     //mostrar todos ninjas por id
@@ -66,7 +64,7 @@ public class NinjaController {
     })
 
     public ResponseEntity<?> listarNinjasPorId(@PathVariable Long id){
-        NinjaDTO ninjasPorID = ninjaService.listarNinjasPorId(id);
+        PessoaDTO ninjasPorID = pessoaService.listarPessoasPorId(id);
 
         if (ninjasPorID != null) {
             return ResponseEntity.ok(ninjasPorID);
@@ -82,16 +80,16 @@ public class NinjaController {
             @ApiResponse(responseCode = "200", description = "Ninja alterado com sucesso!"),
             @ApiResponse(responseCode = "404", description = "Erro ao alterar o ninja")
     })
-    public ResponseEntity<?> alterarNinja(
+    public ResponseEntity<?> alterarPessoa(
             @Parameter(description = "Usuario manda o id no caminho da requisição")
             @PathVariable Long id,
             @Parameter(description = "Usuario manda os dados do ninja a ser atualizado no corpo da requisção")
-            @RequestBody NinjaDTO ninjaAtualizado){
+            @RequestBody PessoaDTO ninjaAtualizado){
 
-       NinjaDTO ninjaDTO = ninjaService.alterarNinja(id, ninjaAtualizado);
+       PessoaDTO pessoaDTO = pessoaService.alterarPessoa(id, ninjaAtualizado);
 
-       if (ninjaDTO != null){
-           return ResponseEntity.ok(ninjaDTO);
+       if (pessoaDTO != null){
+           return ResponseEntity.ok(pessoaDTO);
        }else {
            return ResponseEntity.status(HttpStatus.NOT_FOUND)
                    .body("O ninja não foi encontado: id:"+id);
@@ -108,8 +106,8 @@ public class NinjaController {
     public ResponseEntity<String> deletarNinjaPorId(
             @Parameter(description = "Usuario encaminha o id do ninja que sera excluido")
             @PathVariable Long id){
-        if (ninjaService.listarNinjasPorId(id) != null){
-            ninjaService.deletarNinjaPorId(id);
+        if (pessoaService.listarPessoasPorId(id) != null){
+            pessoaService.deletarPessoaPorId(id);
             return ResponseEntity.ok("Ninja deletado com sucesso! O id: "+id+ " foi deltado com sucesso");
         }
         else{

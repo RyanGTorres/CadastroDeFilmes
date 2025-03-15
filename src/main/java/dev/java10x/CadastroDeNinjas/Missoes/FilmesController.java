@@ -1,6 +1,5 @@
 package dev.java10x.CadastroDeNinjas.Missoes;
 
-import dev.java10x.CadastroDeNinjas.Ninjas.NinjaModel;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -13,12 +12,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("missoes")
-public class MissoesController {
+public class FilmesController {
 
-    private MissoesService missoesService;
+    private FilmesService filmesService;
 
-    public MissoesController(MissoesService missoesService) {
-        this.missoesService = missoesService;
+    public FilmesController(FilmesService filmesService) {
+        this.filmesService = filmesService;
     }
 
     //GET -- Mandar um requisição para mostrar missoes
@@ -33,7 +32,7 @@ public class MissoesController {
     public ResponseEntity<?> listarNinjasPorId(
             @Parameter(description = "Usuario passa um id para lista a parti dele")
             @PathVariable Long id){
-        MissoesModel missoesModel = missoesService.listarNinjasPorId(id);
+        FilmesModel missoesModel = filmesService.listarFilmesPorId(id);
 
         if (missoesModel != null){
             return ResponseEntity.ok(missoesModel);
@@ -43,6 +42,19 @@ public class MissoesController {
         }
     }
 
+    @GetMapping("/listar")
+    @Operation(summary = "Listar todos as missoes", description = "Rota para mostrar ao ususario todas missoes")
+
+    @ApiResponses(value= {
+            @ApiResponse(responseCode = "200", description = "Mostrando missões!"),
+            @ApiResponse(responseCode = "400", description = "Erro ao listar missões")
+    })
+    public ResponseEntity<List<FilmesModel>> listarFilmes(){
+        List<FilmesModel> filmes = filmesService.listarFilmes();
+        return ResponseEntity.ok(filmes);
+    }
+
+
     //POST -- Mandar um requisição para criar missoes
     @PostMapping("/criar")
     @Operation(summary = "Cria uma nova missão", description = "Cria uma nova missao no banco de dados")
@@ -51,16 +63,26 @@ public class MissoesController {
             @ApiResponse(responseCode = "201", description = "Missao criada com sucesso!"),
             @ApiResponse(responseCode = "400", description = "Erro na criação da missao")
     })
-    public ResponseEntity<String> criarMissoes(MissoesModel missoes){
-        MissoesModel missoesModel = missoesService.criarMissoes(missoes);
+    public ResponseEntity<String> criarFilmes(FilmesModel filmes){
+        FilmesModel filmesModel = filmesService.criarFilme(filmes);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("A Missão foi criada com sucesso: "+missoesModel.getNomeMissao());
+                .body("A Missão foi criada com sucesso: "+filmesModel.getFilme());
     }
 
     //PUT -- Mandar um requisição para alterar missoes
-    @PutMapping("/alterar")
-    public String alterarMissao(){
-        return "Missao alterada com sucesso!";
+    @PutMapping("/alterar/{id}")
+    public ResponseEntity<?> alterarMissao(@PathVariable Long id, @RequestBody FilmesModel filmesModel){
+
+        FilmesModel missaoModel = filmesService.alterarFilme(id, filmesModel);
+
+        if (missaoModel != null){
+            return ResponseEntity.ok(missaoModel);
+
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("A missão de id não foi encontrada: "+id);
+        }
     }
 
     //DELETE -- Mandar um requisição para deletar missoes
@@ -72,7 +94,7 @@ public class MissoesController {
             @ApiResponse(responseCode = "404", description = "Erro ao deletar missao")
     })
     public void deletarMissoes(Long id){
-        missoesService.deletarMissoes(id);
+        filmesService.deletarMissoes(id);
     }
 }
 

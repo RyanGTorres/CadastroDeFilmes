@@ -1,0 +1,120 @@
+<!
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Detalhe do ninja</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            width: 50%;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .card {
+            padding: 20px;
+            border-radius: 8px;
+            background: #e3e3e3;
+            margin-bottom: 20px;
+        }
+
+        .ninja-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid #007BFF;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #555;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        thead {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+<h1>Detalhe da pessoa</h1>
+
+<div>
+    <img th:src="${pessoa.imgUrl}" alt="${pessoa.nome}" width="200" />
+    <h2 th:text="${pessoa.nome}"></h2>
+    <p><strong>Email:</strong> <span th:text="${pessoa.email}"></span></p>
+    <p><strong>Idade:</strong> <span th:text="${pessoa.idade}"></span></p>
+    <p><strong>Diretor Favorito:</strong> <span th:text="${pessoa.diretorFavorito}"></span></p>
+
+    <h3>Filme Favorito:</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Genero</th>
+            <th>Nota IMDB</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="filme : ${pessoa.filmes}">
+            <td th:text="${filme.filme}"></td>
+            <td th:text="${filme.genero}"></td>
+            <td th:text="${filme.notaFilme}"></td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+<a href="/pessoas/ui/listar">Voltar para a lista de pessoas</a>
+</body>
+</html>
