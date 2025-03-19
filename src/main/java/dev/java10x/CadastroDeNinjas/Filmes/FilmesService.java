@@ -1,4 +1,4 @@
-package dev.java10x.CadastroDeNinjas.Missoes;
+package dev.java10x.CadastroDeNinjas.Filmes;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,24 +30,24 @@ public class FilmesService {
     public FilmesModel alterarFilme(Long id, FilmesModel filmesModel) {
         Optional<FilmesModel> filmesExistentes = filmesRepository.findById(id);
         if (filmesExistentes.isPresent()) {
-            FilmesModel missao = filmesExistentes.get();
+            FilmesModel filme = filmesExistentes.get();
 
-            missao.setId(filmesModel.getId());
-            missao.setFilme(filmesModel.getFilme());
-            missao.setGenero(filmesModel.getGenero());
-            missao.setNotaFilme(filmesModel.getNotaFilme());
+            filmesModel.setId(id);
+            filme.setFilme(filmesModel.getFilme());
+            filme.setGenero(filmesModel.getGenero());
+            filme.setNotaFilme(filmesModel.getNotaFilme());
 
-            return filmesRepository.save(missao);
+            return filmesRepository.save(filme);
         }
 
         return null;
     }
 
-    public void deletarMissoes(Long id){
+    public void deletarFilmes(Long id){
         filmesRepository.deleteById(id);
     }
-    public void salvarMissao(FilmesModel missao) {
-        filmesRepository.save(missao);  // Salva a missão no banco de dados
+    public void salvarMissao(FilmesModel filme) {
+        filmesRepository.save(filme);  // Salva a missão no banco de dados
     }
 
 

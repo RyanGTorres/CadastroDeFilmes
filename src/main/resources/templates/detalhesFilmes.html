@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>Detalhe da Missão</title>
+    <title>Detalhe da Filmes</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -87,32 +87,33 @@
     </style>
 </head>
 <body>
-<h1>Detalhe da Missão</h1>
+<h1>Detalhe de Filmes</h1>
 
 <div>
-    <h2 th:text="${missao.nomeMissao}"></h2>
-    <p><strong>Nome:</strong> <span th:text="${missao.nomeMissao}"></span></p>
-    <p><strong>Rank:</strong> <span th:text="${missao.rankMissao}"></span></p>
+    <h2 th:text="${filme.filme}"></h2>
+    <p><strong>Nome do filme:</strong> <span th:text="${filme.filme}"></span></p>
+    <p><strong>Gênero:</strong> <span th:text="${filme.genero}"></span></p>
+    <p><strong>Nota do Filme:</strong> <span th:text="${filme.notaFilme}"></span></p>
 
-    <h3>Ninjas cadastrados:</h3>
+
     <table>
         <thead>
         <tr>
-            <th>Nomes</th>
+            <th>Está na lista de:</th>
         </tr>
         </thead>
         <tbody>
 
 
-        <tr th:if="${#lists.isEmpty(missao.ninja)}">
-            <td>Sem ninjas cadastrados</td>
+        <tr th:if="${#lists.isEmpty(filme.pessoa)}">
+            <td>Sem pessoas com esse filme</td>
         </tr>
-        <tr th:each="ninja : ${missao.ninja}"><td th:text="${ninja.nome}"></td>
+        <tr th:each="pessoa : ${filme.pessoa}"><td th:text="${pessoa.nome}"></td>
         </tr>
         </tbody>
     </table>
 
 </div>
-<a href="/missoes/ui/listar">Voltar para a lista de missões</a>
+<a href="/filmes/ui/listar">Voltar para a lista de filmes</a>
 </body>
 </html>

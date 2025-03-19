@@ -1,8 +1,8 @@
-    package dev.java10x.CadastroDeNinjas.Missoes;
+    package dev.java10x.CadastroDeNinjas.Filmes;
 
 
     import com.fasterxml.jackson.annotation.JsonIgnore;
-    import dev.java10x.CadastroDeNinjas.Ninjas.PessoaModel;
+    import dev.java10x.CadastroDeNinjas.Pessoa.PessoaModel;
     import jakarta.persistence.*;
     import lombok.AllArgsConstructor;
     import lombok.Data;
@@ -36,6 +36,6 @@
         // uma missao pode ter varios ninjas @OneToMany
         @OneToMany(mappedBy = "filmes")
         @JsonIgnore
-        private List<PessoaModel> ninja;
+        private List<PessoaModel> pessoa;
 
     }

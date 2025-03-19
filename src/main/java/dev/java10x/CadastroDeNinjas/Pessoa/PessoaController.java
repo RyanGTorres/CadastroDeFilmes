@@ -1,4 +1,4 @@
-package dev.java10x.CadastroDeNinjas.Ninjas;
+package dev.java10x.CadastroDeNinjas.Pessoa;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

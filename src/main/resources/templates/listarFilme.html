@@ -1,119 +1,127 @@
-<!
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>Lista de Missões</title>
     <style>
         body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 20px;
-    text-align: center;
-}
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
 
-h1 {
-    color: #333;
-}
+        h1 {
+            color: #333;
+        }
 
-table {
-    width: 90%;
-    margin: 20px auto;
-    border-collapse: collapse;
-    background: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-}
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
 
-thead {
-    background-color: #007BFF;
-    color: white;
-    text-transform: uppercase;
-}
+        thead {
+            background-color: #007BFF;
+            color: white;
+            text-transform: uppercase;
+        }
 
-th, td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: center;
-}
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
 
-tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
 
-tr:hover {
-    background-color: #f1f1f1;
-}
+        tr:hover {
+            background-color: #f1f1f1;
+        }
 
-img {
-    border-radius: 50%;
-    border: 2px solid #007BFF;
-}
+        img {
+            border-radius: 50%;
+            border: 2px solid #007BFF;
+        }
 
-a {
-    text-decoration: none;
-    color: white;
-    padding: 5px 10px;
-    margin: 5px;
-    border-radius: 5px;
-    display: inline-block;
-}
+        a {
+            text-decoration: none;
+            color: white;
+            padding: 5px 10px;
+            margin: 5px;
+            border-radius: 5px;
+            display: inline-block;
+        }
 
-a:nth-child(1) { background-color: #28a745; }
+        a:nth-child(1) { background-color: #28a745; }
 
-a:nth-child(2) { background-color: #ffc107; }
+        a:nth-child(2) { background-color: #ffc107; }
 
-a:nth-child(3) { background-color: #dc3545; }
+        a:nth-child(3) { background-color: #dc3545; }
 
-a:hover {
-    opacity: 0.8;
-}
-.btn-adicionar {
-    display: inline-block;
-    background-color: #007BFF;
-    color: white;
-    padding: 10px 20px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 16px;
-}
+        a:hover {
+            opacity: 0.8;
+        }
 
-.btn-adicionar:hover {
-    background-color: #0056b3;
-}
+        .btn-adicionar {
+            display: inline-block;
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .btn-adicionar:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
 <h1>Lista de Missões</h1>
-<a class="btn-adicionar" th:href="@{/pessoas/ui/adicionar}">Adicionar Nova Missão</a>
+<a class="btn-adicionar" th:href="@{/filmes/ui/adicionar}">Adicionar Novo Filme</a>
 <table>
     <thead>
     <tr>
         <th>ID</th>
-        <th>Nome missão</th>
-        <th>Rank missão</th>
+        <th>Nome do filme</th>
+        <th>Gênero</th>
+        <th>Nota do Filme</th>
+        <th>Está presente na lista de:</th>
+        <th>Opções</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each ="missao: ${missoes}">
-        <td th:text="${missao.id}"></td>
-        <td th:text="${missao.nomeMissao}"></td>
-        <td th:text="${missao.rankMissao}"></td>
+    <tr th:each="filme : ${filmes}">
+        <td th:text="${filme.id}"></td>
+        <td th:text="${filme.filme}"></td>
+        <td th:text="${filme.genero}"></td>
+        <td th:text="${filme.notaFilme}"></td>
+
 
         <td>
-            <span th:if="${missao.ninja.empty}">Sem ninjas cadastrados</span>
-            <span th:unless="${missao.ninja.empty}" th:each="ninja : ${missao.ninja}"><span th:text="${ninja.nome}"></span><br/></span>
+            <span th:if="${filme.pessoa == null or filme.pessoa.empty}">Nenhuma pessoa tem esse filme como favorito</span>
+            <span th:unless="${filme.pessoa == null or filme.pessoa.empty}" th:each="pessoa : ${filme.pessoa}">
+                <span th:text="${pessoa.nome}"></span><br/>
+            </span>
         </td>
+
         <td>
-            <a th:href="@{/missoes/ui/listar/{id}(id=${missao.id})}">Ver detalhe</a>
-            <a th:href="@{/missoes/ui/alterar/{id}(id=${missao.id})}">Alterar</a>
-            <a th:href="@{/missoes/ui/deletar/{id}(id=${missao.id})}">Deletar</a>
+            <a th:href="@{/filmes/ui/listar/{id}(id=${filme.id})}">Ver detalhe</a>
+            <a th:href="@{/filmes/ui/alterar/{id}(id=${filme.id})}">Alterar</a>
+            <a th:href="@{/filmes/ui/deletar/{id}(id=${filme.id})}">Deletar</a>
         </td>
     </tr>
     </tbody>
 </table>
-<a class="btn-adicionar" th:href="@{/ninjas/ui/listar}">Página de Ninjas</a>
+<a class="btn-adicionar" th:href="@{/pessoas/ui/listar}">Página de Pessoas</a>
 </body>
 </html>

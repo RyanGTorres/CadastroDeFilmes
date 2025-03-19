@@ -1,4 +1,4 @@
-package dev.java10x.CadastroDeNinjas.Missoes;
+package dev.java10x.CadastroDeNinjas.Filmes;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -29,13 +29,13 @@ public class FilmesController {
             @ApiResponse(responseCode = "200", description = "Missão encontrada com sucesso!"),
             @ApiResponse(responseCode = "404", description = "Erro encontrar missao")
     })
-    public ResponseEntity<?> listarNinjasPorId(
+    public ResponseEntity<?> listarFilmesPorId(
             @Parameter(description = "Usuario passa um id para lista a parti dele")
             @PathVariable Long id){
-        FilmesModel missoesModel = filmesService.listarFilmesPorId(id);
+        FilmesModel filmes = filmesService.listarFilmesPorId(id);
 
-        if (missoesModel != null){
-            return ResponseEntity.ok(missoesModel);
+        if (filmes != null){
+            return ResponseEntity.ok(filmes);
         }else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("A missão nao foi encontrada! id: "+id);
@@ -43,11 +43,11 @@ public class FilmesController {
     }
 
     @GetMapping("/listar")
-    @Operation(summary = "Listar todos as missoes", description = "Rota para mostrar ao ususario todas missoes")
+    @Operation(summary = "Listar todos os filmes", description = "Rota para mostrar ao usuario todos os filmes")
 
     @ApiResponses(value= {
-            @ApiResponse(responseCode = "200", description = "Mostrando missões!"),
-            @ApiResponse(responseCode = "400", description = "Erro ao listar missões")
+            @ApiResponse(responseCode = "200", description = "Mostrando filmes!"),
+            @ApiResponse(responseCode = "400", description = "Erro ao listar Filmes")
     })
     public ResponseEntity<List<FilmesModel>> listarFilmes(){
         List<FilmesModel> filmes = filmesService.listarFilmes();
@@ -71,12 +71,12 @@ public class FilmesController {
 
     //PUT -- Mandar um requisição para alterar missoes
     @PutMapping("/alterar/{id}")
-    public ResponseEntity<?> alterarMissao(@PathVariable Long id, @RequestBody FilmesModel filmesModel){
+    public ResponseEntity<?> alterarFilme(@PathVariable Long id, @RequestBody FilmesModel filmesModel){
 
-        FilmesModel missaoModel = filmesService.alterarFilme(id, filmesModel);
+        FilmesModel filme = filmesService.alterarFilme(id, filmesModel);
 
-        if (missaoModel != null){
-            return ResponseEntity.ok(missaoModel);
+        if (filme != null){
+            return ResponseEntity.ok(filme);
 
         }
         else {
@@ -93,8 +93,10 @@ public class FilmesController {
             @ApiResponse(responseCode = "200", description = "Missao deletada com sucesso!"),
             @ApiResponse(responseCode = "404", description = "Erro ao deletar missao")
     })
-    public void deletarMissoes(Long id){
-        filmesService.deletarMissoes(id);
+    public ResponseEntity<String> deletarFilmes(@PathVariable Long id){
+        filmesService.deletarFilmes(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body("A missão foi deletada com sucesso. ID: " + id);
     }
 }
 

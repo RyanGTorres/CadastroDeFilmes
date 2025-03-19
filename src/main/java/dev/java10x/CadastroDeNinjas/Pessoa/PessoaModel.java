@@ -1,7 +1,7 @@
-package dev.java10x.CadastroDeNinjas.Ninjas;
+package dev.java10x.CadastroDeNinjas.Pessoa;
 
 
-import dev.java10x.CadastroDeNinjas.Missoes.FilmesModel;
+import dev.java10x.CadastroDeNinjas.Filmes.FilmesModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

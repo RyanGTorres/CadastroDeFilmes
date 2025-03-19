@@ -98,8 +98,17 @@
         <label for="idade">Idade:</label>
         <input type="number" id="idade" th:field="*{idade}" required />
 
-        <label for="diretorFavorito"> diretorFavorito:</label>
+        <label for="diretorFavorito"> diretor Favorito:</label>
         <input type="text" id="diretorFavorito" th:field="*{diretorFavorito}" />
+
+        <label for="filme">Escolha o Filme</label>
+        <select id="filme" th:field="*{filmes.id}" required>
+            <option value="" disabled selected>Escolha um Filme</option>
+            <!-- Lista de filmes -->
+            <option th:each="filme : ${todosFilmes}"
+                    th:value="${filme.id}"
+                    th:text="${filme.filme}">Filme</option>
+        </select>
 
         <button type="submit">Cadastrar Pessoa</button>
     </form>
